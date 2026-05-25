@@ -55,13 +55,13 @@ export function LandingPage({
           </Link>
           <Link
             className="hover:text-[color:var(--accent)]"
-            href={`/u/alexchen?lang=${locale}`}
+            href={`/login?lang=${locale}&next=/settings/profile`}
           >
             {dictionary.identityHub}
           </Link>
           <Link
             className="hover:text-[color:var(--accent)]"
-            href="https://github.com"
+            href="https://github.com/DeepRatAI/Dev4All"
             target="_blank"
           >
             {dictionary.github}
@@ -118,7 +118,7 @@ export function LandingPage({
                     {metric.label}
                   </dt>
                   <dd className="mt-1 text-lg font-semibold text-[color:var(--foreground)]">
-                    {formatCompact(metric.value)}+
+                    {formatCompact(metric.value)}
                   </dd>
                 </div>
               );

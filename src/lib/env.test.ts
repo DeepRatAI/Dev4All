@@ -13,6 +13,15 @@ describe("environment configuration", () => {
     expect(parsed.AUTH_SECRET).toBe("nextauth-secret-with-enough-length");
   });
 
+  it("derives the app URL from Vercel preview deployments when no canonical URL is set", () => {
+    const parsed = parseEnv({
+      VERCEL_URL: "rubberduck-random-preview.vercel.app",
+      NEXTAUTH_SECRET: "nextauth-secret-with-enough-length",
+    });
+
+    expect(parsed.APP_URL).toBe("https://rubberduck-random-preview.vercel.app");
+  });
+
   it("keeps optional production integrations typed and off by default", () => {
     const parsed = parseEnv({
       NEXT_PUBLIC_POSTHOG_TOKEN: "phc_public_token",

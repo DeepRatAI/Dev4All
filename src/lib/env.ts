@@ -229,9 +229,14 @@ const envSchema = z
   });
 
 export function parseEnv(input: NodeJS.ProcessEnv | Record<string, unknown>) {
+  const vercelUrl =
+    typeof input.VERCEL_URL === "string" && input.VERCEL_URL.length > 0
+      ? `https://${input.VERCEL_URL}`
+      : undefined;
+
   return envSchema.parse({
     ...input,
-    APP_URL: input.APP_URL ?? input.NEXTAUTH_URL,
+    APP_URL: input.APP_URL ?? input.NEXTAUTH_URL ?? vercelUrl,
     AUTH_SECRET: input.AUTH_SECRET ?? input.NEXTAUTH_SECRET,
     RSS_REFRESH_SECRET: input.RSS_REFRESH_SECRET ?? input.CRON_SECRET,
   });

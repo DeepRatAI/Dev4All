@@ -30,7 +30,7 @@ Current repo-side work:
 Required from you:
 
 - Authenticate the Vercel CLI locally or provide a `VERCEL_TOKEN` with access to team `team_lc362xI8Nuaw39A4V0eQCZbU` (`gonzalo-romero-deeprats-projects`).
-- Create or link the Vercel project for RubberDuck. The currently visible Vercel team only has one existing project, `gonzalo-deeprat`; no RubberDuck/Dev4All project exists yet.
+- Complete: Vercel project `gonzalo-romero-deeprats-projects/rubberduck` is created and linked locally.
 - Set production and preview environment variables:
   - `APP_URL`
   - `NEXTAUTH_URL`
@@ -57,6 +57,7 @@ Validation command after Vercel envs exist:
 
 ```bash
 RUBBERDUCK_STRICT_ENV=true pnpm env:check
+pnpm vercel:env:sync
 ```
 
 Repo-side support now available:
@@ -100,7 +101,7 @@ Production rule:
 
 Required from you:
 
-- Create R2 S3-compatible credentials, not only a Cloudflare API token.
+- Create R2 S3-compatible credentials, not only a Cloudflare API token. Cloudflare dashboard path: **R2 > Manage R2 API Tokens > Create API token**. Choose object read/write access for bucket `dev4all`, then copy the generated **Access Key ID** and **Secret Access Key**.
 - Store in Vercel:
   - `STORAGE_DRIVER=r2`
   - `R2_ACCOUNT_ID`
@@ -132,6 +133,42 @@ Recommended read CORS:
     "MaxAgeSeconds": 3600
   }
 ]
+```
+
+Local secret file format for Vercel sync:
+
+Add these as `KEY=value` lines to `../credenciales.txt` or another local file passed with `RUBBERDUCK_CREDENTIALS_FILE=/path/to/file`. Do not commit that file.
+
+```bash
+VERCEL_TOKEN=...
+DATABASE_URL=...
+AUTH_SECRET=...
+NEXTAUTH_SECRET=...
+CRON_SECRET=...
+RSS_REFRESH_SECRET=...
+ADMIN_EMAILS=...
+GITHUB_ID=...
+GITHUB_SECRET=...
+GOOGLE_CLIENT_ID=...
+GOOGLE_CLIENT_SECRET=...
+UPSTASH_REDIS_REST_URL=...
+UPSTASH_REDIS_REST_TOKEN=...
+NEXT_PUBLIC_POSTHOG_TOKEN=...
+NEXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+NEXT_PUBLIC_SENTRY_DSN=...
+SENTRY_DSN=...
+STORAGE_DRIVER=r2
+R2_ACCOUNT_ID=...
+R2_BUCKET=dev4all
+R2_ACCESS_KEY_ID=...
+R2_SECRET_ACCESS_KEY=...
+R2_PUBLIC_BASE_URL=...
+```
+
+Then run:
+
+```bash
+pnpm vercel:env:sync
 ```
 
 ## 6. OAuth and Email Auth

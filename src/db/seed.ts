@@ -29,6 +29,12 @@ import { buildProjectSignalDraft } from "@/lib/project-signals";
 import { curatedRssSources } from "@/lib/rss-sources";
 import { getTagCategory, toTagSlug } from "@/lib/social-taxonomy";
 
+if (process.env.NODE_ENV === "production" && process.env.ALLOW_DEMO_SEED !== "true") {
+  throw new Error(
+    "Refusing to seed demo content in production. Set ALLOW_DEMO_SEED=true only for an intentional editorial/staging seed.",
+  );
+}
+
 const ids = {
   alex: "00000000-0000-4000-8000-000000000001",
   mina: "00000000-0000-4000-8000-000000000002",
