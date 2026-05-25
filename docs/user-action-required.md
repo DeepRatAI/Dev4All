@@ -8,10 +8,11 @@ Do not paste secrets into issues, commits, screenshots, or public chat. Store th
 
 Status:
 
-- In progress from the local workspace: this project is being initialized and pushed to `DeepRatAI/Dev4All`.
+- Complete: the local project was initialized as Git repo and pushed to `https://github.com/DeepRatAI/Dev4All` on branch `main`.
 
-Required from you after the first push:
+Required from you before CI can become green:
 
+- Resolve the GitHub billing/account lock. The first CI run failed before starting a runner with this GitHub annotation: "The job was not started because your account is locked due to a billing issue."
 - Add the GitHub Actions secrets only if a workflow later needs deploy credentials. The current CI workflow uses no external secrets.
 - Enable branch protection after CI is green:
   - require pull request before merge
@@ -28,7 +29,8 @@ Current repo-side work:
 
 Required from you:
 
-- Create or link the Vercel project for RubberDuck.
+- Authenticate the Vercel CLI locally or provide a `VERCEL_TOKEN` with access to team `team_lc362xI8Nuaw39A4V0eQCZbU` (`gonzalo-romero-deeprats-projects`).
+- Create or link the Vercel project for RubberDuck. The currently visible Vercel team only has one existing project, `gonzalo-deeprat`; no RubberDuck/Dev4All project exists yet.
 - Set production and preview environment variables:
   - `APP_URL`
   - `NEXTAUTH_URL`
@@ -67,6 +69,7 @@ Repo-side support now available:
 
 Required from you:
 
+- Confirm that you own `rubberduck.net`, or choose a different domain. Vercel domain availability reports `rubberduck.net` is not available for purchase.
 - Point `rubberduck.net` and `www.rubberduck.net` to Vercel.
 - Set `APP_URL=https://rubberduck.net` and `NEXTAUTH_URL=https://rubberduck.net`.
 - Decide whether `www` redirects to apex or apex redirects to `www`; recommendation: apex canonical, `www` redirect.
